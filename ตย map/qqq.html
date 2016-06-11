@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>ทดสอบ geolocation + google map</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
+</head>
+<body>
+	<p>Click the button to get your coordinates.</p>
+	<input  name="lati" type="text" id="lati" style="width:280px;" />
+	<input  name="longti" type="text" id="longti" style="width:280px;" />
+	<button onclick="getLocation()">Try It</button>
+<script type="text/javascript">
+var lat,lnt;
+function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.watchPosition(showPosition);
+	    } else {
+	        
+			}
+	    }
+
+	function showPosition(position) {
+		lat=position.coords.latitude ;
+		 $("#lati").val(lat);
+		lnt=position.coords.longitude;
+		 $("#longti").val(lnt);
+	   
+	}
+</script>
+
+
+</body>
+	
+</html>

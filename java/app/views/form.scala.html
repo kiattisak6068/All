@@ -1,0 +1,100 @@
+
+@main("Form") {
+
+<div class = "container">
+<div class="col-lg-4"></div>
+<div class="col-lg-4"><h4>แจ้งอุบัติเหตุ</h4></div>
+</div><br/>
+<div class = "container">
+<div class="col-lg-3"></div>
+<div class="col-lg-6">
+
+
+
+	<form action="/save" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+	
+	<fieldset class="form-group">
+   <div class="col-lg-12">
+	 <label for="name">อีเมล</label>
+		<input type="text" class="form-control"  id = "email" name="email" value="@session.get("admin")@session.get("user")">
+	<div>
+  </fieldset><br/>
+	
+   <fieldset class="form-group">
+   <div class="col-lg-12">
+	<label for="Description">รายละเอียด</label>
+	<textarea class="form-control" rows="4" id ="description" name="description"  required autocomplete="off"></textarea>
+	<div>
+  </fieldset><br/>
+  
+   <fieldset class="form-group">
+	 <div class="col-lg-6"> 
+	 <label for="lat">ละติจูด</label>
+		<input type="text" class="form-control"  id = "lat" name="lat"  required autocomplete="off">
+	</div>
+   
+    <div class="col-lg-6"> 
+	<label for="lng">ลองจิจูด</label>
+		<input type="text" class="form-control"  id = "lng" name="lng"  required autocomplete="off">
+	</div>
+  </fieldset>
+	
+  <fieldset class="form-group">
+  <div class="col-lg-12"> 
+	<div id="map" style="width: 100%; height: 400px;"></div>
+	 </div>
+   </fieldset><br/>
+   <div class="col-lg-12"> 
+  <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+<br/><br/>
+</div>   
+
+</div>
+
+<script type="text/javascript">
+var lat,lnt,mylocation;
+window.onload=function getLocation() {
+		
+	    if (navigator.geolocation) {
+	        navigator.geolocation.watchPosition(showPosition);
+			
+	    } else {
+	        
+			}
+			
+	    }
+
+	function showPosition(position) {
+		lat=position.coords.latitude ;
+		lnt=position.coords.longitude;
+		 $("#lat").val(lat);
+		 $("#lng").val(lnt);
+		mylocation = new google.maps.LatLng(lat,lnt);
+		
+	initMap();
+
+	}
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 17,
+      center: mylocation,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+var my_Marker = new google.maps.Marker({ // สร้างตัว marker
+    position: mylocation,  // กำหนดไว้ที่เดียวกับจุดกึ่งกลาง
+    map: map, // กำหนดว่า marker นี้ใช้กับแผนที่ชื่อ instance ว่า map
+    draggable:true, // กำหนดให้สามารถลากตัว marker นี้ได้
+    title:"คลิกลากเพื่อหาตำแหน่งจุดที่ต้องการ!" // แสดง title เมื่อเอาเมาส์มาอยู่เหนือ
+});
+google.maps.event.addListener(my_Marker, 'dragend', function() {
+    var my_Point = my_Marker.getPosition();  // หาตำแหน่งของตัว marker เมื่อกดลากแล้วปล่อย
+    map.panTo(my_Point);  // ให้แผนที่แสดงไปที่ตัว marker
+    $("#lat").val(my_Point.lat());  // เอาค่า latitude ตัว marker แสดงใน textbox id=lat_value
+    $("#lng").val(my_Point.lng()); // เอาค่า longitude ตัว marker แสดงใน textbox id=lon_value
+});
+}
+</script>
+
+}

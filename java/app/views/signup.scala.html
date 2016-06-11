@@ -1,0 +1,74 @@
+@(fail:String)(user:models.Users)
+	
+<style>
+	body {
+    padding-top: 100px; 
+}
+</style>
+
+@main("Sign Up") {
+<div class = "container">
+   <div class="col-lg-4"></div>
+   <div class="col-lg-4"><h4>ลงทะเบียน</h4></div>
+</div><br/>
+   <div class = "container">
+   <div class="col-lg-3"></div>
+   <div class="col-lg-6">
+		
+		
+          <form role="form" action="/save_register" method="post">		  
+		  <div class="col-lg-6">
+		   <div class="form-group">
+              <label for="fname"><span class="glyphicon glyphicon-user"></span> First Name</label>
+              <input type="text" class="form-control" id="fname" name="fname" placeholder=" First Name" required autocomplete="off" value="@user.fname">
+            </div>
+			</div>
+			
+			<div class="col-lg-6">
+			 <div class="form-group">
+              <label for="lname"><span class="glyphicon glyphicon-user"></span> Last Name</label>
+              <input type="text" class="form-control" id="laname" name="lname" placeholder="Last Name" required autocomplete="off" value="@user.lname">
+            </div>
+			</div>
+			
+			<div class="col-lg-12">
+            <div class="form-group">
+              <label for="email"><span class="glyphicon glyphicon-user"></span> Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" required autocomplete="off" value="@user.email">
+            </div>
+			</div>
+			
+			<div class="col-lg-6">
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password" required autocomplete="off" minlength="8">
+            </div>
+			</div>
+			
+			<div class="col-lg-6">
+			 <div class="form-group">
+              <label for="re-psw"><span class="glyphicon glyphicon-eye-open"></span> Re-Password</label>
+              <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="Password" required autocomplete="off" minlength="8">
+            </div>
+			</div>
+			<br/>
+			<div class="col-lg-6">
+			<button type="submit" class="btn btn-success">Sign Up</button>
+			</div>
+			
+		  </form>
+		  
+		</div>  
+		<div class="col-lg-3"></div>
+		
+		<div class = "container">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4"><h4>@fail</h4></div>
+		</div><br/>
+		
+</div>
+
+      
+
+
+}

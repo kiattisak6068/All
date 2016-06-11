@@ -1,0 +1,60 @@
+@(fail:String)
+	
+<style>
+	body {
+    padding-top: 100px; 
+}
+</style>
+
+@main("Sign Up Admin") {
+<div class = "container">
+   <div class="col-lg-4"></div>
+   <div class="col-lg-4"><h4>เพิ่ม  Admin</h4></div>
+</div><br/>
+   <div class = "container">
+   <div class="col-lg-3"></div>
+   <div class="col-lg-6">
+		
+		
+          <form role="form" action="/saveadmin" method="post">		  
+			<div class="col-lg-12">
+            <div class="form-group">
+              <label for="email"><span class="glyphicon glyphicon-user"></span> Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" required autocomplete="off" >
+            </div>
+			</div>
+			
+			<div class="col-lg-6">
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password" required autocomplete="off" minlength="8">
+            </div>
+			</div>
+			
+			<div class="col-lg-6">
+			 <div class="form-group">
+              <label for="re-psw"><span class="glyphicon glyphicon-eye-open"></span> Re-Password</label>
+              <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="Password" required autocomplete="off" minlength="8">
+            </div>
+			</div>
+			<br/>
+			<div class="col-lg-6">
+			<button type="submit" class="btn btn-success">Sign Up</button>
+			</div>
+			
+		  </form>
+		  
+		</div>  
+		<div class="col-lg-3"></div>
+		
+		<div class = "container">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4"><h4>@fail</h4></div>
+		</div><br/>
+		
+</div>
+
+      
+
+
+}

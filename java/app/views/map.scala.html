@@ -1,0 +1,149 @@
+@(acc: models.Accident)
+<style>
+ html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+   #map-canvas {
+          height: 75%;
+          width: 100%;
+      }
+</style>
+
+@main("Description") {
+<div class = "container">
+ <div class="col-lg-6"> 
+<div id="map-canvas"></div> 
+<br/>
+<label for="lat">ตำแหน่งของคุณ</label>
+<button onclick="ClickShow()" class="btn btn-primary" type="submit">คลิกเพื่อดูเส้นทาง</button><br/>
+ <fieldset class="form-group">
+	 <div class="col-lg-4"> 
+	 <label for="lat">ละติจูด</label>
+		<input type="text" class="form-control"  id = "lat">
+	</div>
+   
+    <div class="col-lg-4"> 
+		<label for="lng">ลองจิจูด</label>
+		<input type="text" class="form-control"  id = "lng">
+	</div>
+	
+  </fieldset>
+ 
+	<div id="panel" style="width: 100%; float: top;"></div> 
+</div>
+<div class="col-lg-6">
+	<div class="table-responsive">
+		<table class="display table">
+
+			<tr><td>Time</td><td>@acc.time</td></tr>
+			<tr><td>Description</td><td>@acc.description</td></tr>
+			<tr><td>Lat</td><td>@acc.lat</td></tr>
+			<tr><td>Lng</td><td>@acc.lng</td></tr>
+			<tr><td>Email</td><td>@acc.email</td></tr>
+			
+		</table>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+var lat,lnt,mylocation;
+var pointA = new google.maps.LatLng(@acc.lat, @acc.lng);
+
+
+window.onload=function getLocation() {
+		
+	    if (navigator.geolocation) {
+	        navigator.geolocation.watchPosition(showPosition);
+			
+	    } else {
+	        
+			}
+			
+	    }
+
+	function showPosition(position) {
+		lat=position.coords.latitude ;
+		lnt=position.coords.longitude;
+		 $("#lat").val(lat);
+		 $("#lng").val(lnt);
+		mylocation = new google.maps.LatLng(lat,lnt);
+	
+	}
+function ClickShow(){
+	MapShow(pointA,mylocation);
+}	
+function initMap() {
+    var myOptions = {
+            zoom: 15,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+          draggable: true
+
+         
+        }),
+        markerA = new google.maps.Marker({
+            position: pointA,
+            title: "point A",
+            map: map
+        });
+
+}
+
+function MapShow(pointA,mylocation) {
+    var myOptions = {
+            zoom: 10,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map
+        }),
+        markerA = new google.maps.Marker({
+            position: pointA,
+            title: "Accident",
+            label: "B",
+            map: map
+        }),
+        markerB = new google.maps.Marker({
+            position: mylocation,
+            title: "mylocation",
+            label: "A",
+            map: map
+        });
+		directionsDisplay.setPanel(document.getElementById('panel'));
+
+    // get route from A to B
+    calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, mylocation);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, mylocation) {
+	
+	directionsService.route({
+        origin: pointA,
+        destination: mylocation,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+
+
+    }, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        } else {
+            //
+        }
+    });
+}
+
+initMap();
+
+</script>
+
+
+}

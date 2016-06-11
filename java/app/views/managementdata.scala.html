@@ -1,0 +1,71 @@
+
+@main("Welcome to Play") {
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td{
+    text-align: left;
+    padding: 10px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+   
+	 padding: 10px;
+	 text-align:center
+}
+</style>
+
+<div class = "container">
+   <div class="col-lg-4"></div>
+   <div class="col-lg-4"><h4>Accidents</h4></div>
+</div><br/>
+	<div class="container">
+	<div class="table-responsive">
+	<table id="myTable" class="display table" style="width:100%">
+	 <thead>  
+	<tr>
+		
+		<th >Time</th>
+		<th >Description</th>
+		<th >Lat</th>
+		<th >Lng</th>
+		<th >Email</th>
+		<th >Option</th>
+		
+	</tr>
+	</thead>
+	<tbody> 
+	 @Accident.find.all().map { acc =>
+	<tr>
+		<td>@acc.time</td>
+            <td>@acc.description</td>
+		   <td>@acc.lat</td>
+            <td>@acc.lng</td>
+			 <td>@acc.email</td>
+			 <td><a href="/delete/@acc.ID"><button type="submit" class="btn btn-success">delete</button></a></td>
+	</tr>
+	
+        }
+	</tbody>
+    </table>
+	
+	</div>
+</div>
+
+ <script>
+$(document).ready(function(){
+    $('#myTable').dataTable();
+});
+</script>  
+
+}
+
+   
+
+

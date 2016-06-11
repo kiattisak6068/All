@@ -1,0 +1,79 @@
+@(message: String)
+
+@main("Accident") {
+<style>
+
+.hero-spacer {
+    margin-top: 50px;
+}
+
+.hero-feature {
+    margin-bottom: 30px;
+}
+
+footer {
+    margin: 50px 0;
+}
+</style>
+@message
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header>
+		
+		 <div class="row text-center">
+            <img src="@routes.Assets.versioned("images/2.jpg")"  width = "1000" height = "350px">
+			</div>
+        </header>
+
+        <hr>
+
+     
+
+        <!-- Page Features -->
+        <div class="row text-center">
+
+             <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                     <a href="http://www.thaiemsinfo.com/autopagev4/show_page.php?topic_id=343&auto_id=8&TopicPk"  target="_blank"><img src="@routes.Assets.versioned("images/6.jpg")" width = "400" height = "350px" ></a>
+                </div>
+            </div>
+
+             <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <a href="http://www.matichon.co.th/news_detail.php?newsid=1451384388"  target="_blank"><img src="@routes.Assets.versioned("images/5.jpg")" width = "400" height = "350px" ></a>
+                </div>
+            </div>
+
+             <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                     <a href="http://www.manager.co.th/QOL/ViewNews.aspx?NewsID=9580000142409&Html=1&TabID=1&"  target="_blank"><img src="@routes.Assets.versioned("images/4.jpg")" width = "400" height = "350px" ></a>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                     <a href="http://www.thaiemsinfo.com/autopagev4/show_page.php?topic_id=377&auto_id=9&TopicPk="  target="_blank"><img src="@routes.Assets.versioned("images/3.jpg")" width = "400" height = "350px" ></a>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+
+}

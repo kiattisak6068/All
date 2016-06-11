@@ -1,0 +1,121 @@
+
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<style> 
+ html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+      #map-canvas {
+          height: 50%;
+          width: 50%;
+      }
+
+
+
+
+	  </style>
+<div id="map-canvas"></div> 
+<input  name="lati" type="text" id="lati" style="width:280px;" />
+	<input  name="longti" type="text" id="longti" style="width:280px;" />
+	<button onclick="ClickShow()">Show Travel</button><br/>
+	<div id="panel" style="width: 300px; float: top;"></div> 
+<script type="text/javascript">
+var lat,lnt,mylocation;
+var pointA = new google.maps.LatLng(15, 104.9064949);
+
+
+window.onload=function getLocation() {
+		
+	    if (navigator.geolocation) {
+	        navigator.geolocation.watchPosition(showPosition);
+			
+	    } else {
+	        
+			}
+			
+	    }
+
+	function showPosition(position) {
+		lat=position.coords.latitude ;
+		 $("#lati").val(lat);
+		lnt=position.coords.longitude;
+		 $("#longti").val(lnt);
+		mylocation = new google.maps.LatLng(lat,lnt);
+	
+	}
+function ClickShow(){
+	MapShow(pointA,mylocation);
+}	
+function initMap() {
+    var myOptions = {
+            zoom: 7,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+          draggable: true
+
+         
+        }),
+        markerA = new google.maps.Marker({
+            position: pointA,
+            title: "point A",
+            label: "A",
+            map: map
+        });
+
+}
+
+function MapShow(pointA,mylocation) {
+    var myOptions = {
+            zoom: 10,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map
+        }),
+        markerA = new google.maps.Marker({
+            position: pointA,
+            title: "point A",
+            label: "A",
+            map: map
+        }),
+        markerB = new google.maps.Marker({
+            position: mylocation,
+            title: "mylocation",
+            label: "B",
+            map: map
+        });
+		directionsDisplay.setPanel(document.getElementById('panel'));
+
+    // get route from A to B
+    calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, mylocation);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, mylocation) {
+	
+	directionsService.route({
+        origin: pointA,
+        destination: mylocation,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+
+
+    }, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        } else {
+            //
+        }
+    });
+}
+
+initMap();
+
+</script>

@@ -1,0 +1,78 @@
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<style> 
+ html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+      #map-canvas {
+          height: 100%;
+          width: 100%;
+      }
+	  </style>
+<div id="map-canvas"></div> 	
+
+<script type="text/javascript">
+
+
+function initMap() {
+	var destination2; 
+    var pointA = new google.maps.LatLng(16, 100);  
+       var myOptions = {
+            zoom: 7,
+            center: pointA
+        },
+        map = new google.maps.Map(document.getElementById('map-canvas'), myOptions),
+        // Instantiate a directions service.
+        directionsService = new google.maps.DirectionsService,
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map
+        });
+	// detect geolocation lat/lng
+	if ( navigator.geolocation ) {
+        navigator.geolocation.getCurrentPosition(function(location) {
+           var location = location.coords;
+           destination2 = new google.maps.LatLng(location.latitude, location.longitude);
+            map.setCenter(destination2);
+			setMarker(destination2);
+            }, function() {               
+             });
+      }
+	  setMarker(pointA);
+	  function setMarker(initialName) {
+		var marker = new google.maps.Marker({
+		draggable: true,
+		position: initialName,
+		map: map,
+		title: "คุณอยู่ที่นี่."
+	});
+
+}
+		
+
+    // get route from A to B
+    calculateAndDisplayRoute(directionsService, directionsDisplay, destination2, pointA);
+
+}
+
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, destination2, pointA) {
+    var direction = {
+      origin: destination2,
+      destination: destination2,
+    
+    }
+   var request = {
+		origin:destination2, 
+		destination:pointA,
+		travelMode:google.maps.TravelMode.DRIVING
+	};
+
+ directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    });
+}
+initMap();
+</script>

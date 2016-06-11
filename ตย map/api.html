@@ -1,0 +1,55 @@
+<html>
+<head>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&language=th"></script>
+<script type="text/javascript">
+var g = {};
+function init(){
+	var location = new google.maps.LatLng(15.213765, 104.90217);
+	g.service = new google.maps.DirectionsService();
+	g.map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 14,
+		center: new google.maps.LatLng(15.113765,104.907417),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+	g.marker = {
+		origin: new google.maps.Marker({
+	        position: location,
+	        map: g.map
+			
+	    }),
+		destination: new google.maps.Marker({
+	        position: destination2,
+	        map: g.map,
+			draggable: true
+	    })
+	};
+	
+	g.render = new google.maps.DirectionsRenderer({
+		draggable:false,
+		suppressMarkers:true,
+		map: g.map
+	});
+	
+	for(each in g.marker){
+		google.maps.event.addDomListener(g.marker[each], 'dragend', calculate_waypoint);
+	}
+}
+
+function calculate_waypoint(){
+	var request = {
+		origin:g.marker.origin.getPosition(), 
+		destination:g.marker.destination.getPosition(),
+		travelMode:google.maps.TravelMode.DRIVING
+	};
+	g.service.route(request, function(result, stts){
+		g.render.setDirections(result);
+	});
+}
+</script>
+</head>
+<body onload = "init()">
+
+	<div id="map" style="width:100%;height:400px"></div>
+	
+</body>
+</html>
